@@ -71,10 +71,10 @@ function renderQuestions() {
     // Modify new elements
     count.setAttribute("id", "count");
     timer.setAttribute("id", "timer");
-    li1.setAttribute("class", "choices");
-    li2.setAttribute("class", "choices");
-    li3.setAttribute("class", "choices");
-    li4.setAttribute("class", "choices");
+    li1.setAttribute("class", "choices mouseOver");
+    li2.setAttribute("class", "choices mouseOver");
+    li3.setAttribute("class", "choices mouseOver");
+    li4.setAttribute("class", "choices mouseOver");
 
     timer.textContent = "Timer: ";
     count.textContent = "00";
@@ -146,6 +146,24 @@ function renderQuestions() {
             } else {
                 secondsLeft = secondsLeft - 5;
                 count.textContent = secondsLeft + 1;
+
+                // Animation in wrong answer
+                var animationStart = 0
+                var animationInterval = setInterval(function () {
+                    event.target.classList.remove("mouseOver");
+                    
+                    animationStart++;
+
+                    if(animationStart < 9) {
+                        var animationNumber = (animationStart % 4) + 1;
+                        event.target.setAttribute("class", "choices rotate" + animationNumber);
+
+                    } else {
+                        event.target.setAttribute("class", "choices mouseOver");
+                        clearInterval(animationInterval);
+                    }
+
+                }, 50)
             }
         })
     }
@@ -155,7 +173,7 @@ function renderQuestions() {
     // Display first question
     questionIterator = showNextQuestion(questionIterator);
 
-    // Run timer
+    // START: Run timer
     var timerInterval = setInterval(function () {
 
         if (secondsLeft <= 0) {

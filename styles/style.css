@@ -71,7 +71,7 @@ hr {
     border-radius: 25px;
 }
 
-.choices:hover {
+.mouseOver:hover {
     background-color: #c2c1c1;
     font-size: 22px;
 }
